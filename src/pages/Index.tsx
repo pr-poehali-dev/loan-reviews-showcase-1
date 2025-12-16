@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -44,6 +45,7 @@ interface LoanCompany {
 }
 
 const Index = () => {
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('home');
   const [loanAmount, setLoanAmount] = useState([50000]);
   const [loanTerm, setLoanTerm] = useState([30]);
@@ -468,17 +470,20 @@ const Index = () => {
                     </div>
 
                     <div className="flex flex-col gap-2 md:w-48">
-                      <Button className="gradient-bg text-white">
+                      <Button 
+                        className="gradient-bg text-white"
+                        onClick={() => navigate(`/company/${company.id}`)}
+                      >
+                        <Icon name="Info" size={16} className="mr-2" />
+                        Подробнее
+                      </Button>
+                      <Button variant="outline">
                         <Icon name="ExternalLink" size={16} className="mr-2" />
                         Получить
                       </Button>
                       <div className="flex items-center gap-2 text-xs text-gray-600">
                         <Icon name="Clock" size={14} />
                         <span>Решение: {company.approvalTime}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-gray-600">
-                        <Icon name="TrendingUp" size={14} />
-                        <span>Одобрение: {company.approvalRate}%</span>
                       </div>
                     </div>
                   </div>
